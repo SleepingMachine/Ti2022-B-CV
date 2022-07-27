@@ -19,6 +19,8 @@ cv::Mat ShapeIdentify::dst_mask_B_;
 
 std::vector<std::vector<cv::Point2i>> ShapeIdentify::all_contours_;
 std::vector<cv::Vec4i> ShapeIdentify::hierarchy_;
+std::vector<std::vector<cv::Point2i>> ShapeIdentify::suspected_shape_contours_B_;
+std::vector<cv::RotatedRect> ShapeIdentify::suspected_shape_rects_B_;
 
 int ShapeIdentify::hmin_R_;
 int ShapeIdentify::hmax_R_;
@@ -38,6 +40,8 @@ int ShapeIdentify::open_   = 4;
 int ShapeIdentify::close_  = 12;
 int ShapeIdentify::erode_  = 4;
 int ShapeIdentify::dilate_ = 8;
+
+ShapePara ShapeIdentify::shapePara_;
 
 void ShapeIdentify::ShapeIdentifyStream(cv::Mat *import_src_0) {
     cv::Mat temp_src_0;
@@ -61,7 +65,7 @@ void ShapeIdentify::ImagePreprocessing() {
     if (!import_src_.empty()){
         cv::Rect m_select;
         m_select = cv::Rect(120,40,400,400);
-        import_roi_ = import_src_(m_select);
+        import_roi_ = import_src_(m_select).clone();
     }
 
 
@@ -88,6 +92,11 @@ void ShapeIdentify::ImagePreprocessing() {
 }
 
 void ShapeIdentify::AuxiliaryGraphicsDrawing() {
+    
+    for (int i = 0; i < suspected_shape_rects_B_.size(); ++i) {
+        IdentifyTools::drawRotatedRect(import_roi_, suspected_shape_rects_B_[i], cv::Scalar(170, 255, 32), 2, 16);
+    }
+
     cv::imshow("src", import_roi_);
     cv::imshow("mask_R", dst_mask_R_);
     cv::imshow("mask_B", dst_mask_B_);
@@ -95,24 +104,25 @@ void ShapeIdentify::AuxiliaryGraphicsDrawing() {
 }
 
 void ShapeIdentify::ResourceRelease() {
-
+    suspected_shape_rects_B_   .clear();
+    suspected_shape_contours_B_.clear();
 }
 
 void ShapeIdentify::ShapeClassification() {
     cv::findContours(dst_mask_B_, all_contours_, hierarchy_, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
     for (int i = 0; i < all_contours_.size(); ++i) {
-        if (hierarchy_[i][3] == -1 && hierarchy_[i][4] == -1) {
+        if (hierarchy_[i][3] == -1) {
             cv::RotatedRect scanRect = cv::minAreaRect(all_contours_[i]);                    //检测最小面积的矩形
             cv::Point2f vertices[4];
             scanRect.points(vertices);
-            if (scanRect.size.area() < orePara.min_ore_area){
-                continue;
+            if (scanRect.size.area() < shapePara_.min_shape_rect_area){
+                //continue;
             }
-            if (OreTool::getRectLengthWidthRatio(scanRect) < orePara.min_ore_length_width_ratio || OreTool::getRectLengthWidthRatio(scanRect) > orePara.max_ore_length_width_ratio){
-                continue;
+            if (IdentifyTools::getRectLengthWidthRatio(scanRect) < shapePara_.min_shape_length_width_ratio || IdentifyTools::getRectLengthWidthRatio(scanRect) > shapePara_.max_shape_length_width_ratio){
+                //continue;
             }
-            suspected_ore_rects_.push_back(scanRect);
-            suspected_ore_contours_.push_back(all_contours_[i]);
+            suspected_shape_rects_B_.push_back(scanRect);
+            suspected_shape_contours_B_.push_back(all_contours_[i]);
         }
     }
 }

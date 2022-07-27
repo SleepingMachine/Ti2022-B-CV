@@ -10,6 +10,8 @@
 
 #include "../../include/identify/identify-tools.hpp"
 #include "../../include/switch/switch-control.hpp"
+#include "../../tools/tools-config.hpp"
+
 class ShapeIdentify{
 private:
     static cv::Mat import_src_;
@@ -42,11 +44,15 @@ private:
 
     static std::vector<std::vector<cv::Point2i>> all_contours_;
     static std::vector<cv::Vec4i> hierarchy_;
+    static std::vector<std::vector<cv::Point2i>> suspected_shape_contours_B_;
+    static std::vector<cv::RotatedRect> suspected_shape_rects_B_;
 
     static void ImagePreprocessing();
     static void AuxiliaryGraphicsDrawing();
     static void ResourceRelease();
     static void ShapeClassification();
+
+    static ShapePara shapePara_;
 
 public:
     friend class SwitchControl;

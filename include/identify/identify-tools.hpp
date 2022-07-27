@@ -16,6 +16,7 @@ public:
         cv::namedWindow("阈值调整-R",cv::WINDOW_AUTOSIZE);
         cv::namedWindow("阈值调整-B",cv::WINDOW_AUTOSIZE);
         cv::namedWindow("阈值调整-S",cv::WINDOW_AUTOSIZE);
+
         cv::createTrackbar("hmin0", "阈值调整-R",hmin_0, 255,NULL);
         cv::createTrackbar("hmax0", "阈值调整-R",hmax_0, 255,NULL);
         cv::createTrackbar("smin0", "阈值调整-R",smin_0, 255,NULL);
