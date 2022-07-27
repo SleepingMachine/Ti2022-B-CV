@@ -1,0 +1,4 @@
+/snap/clion/198/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/198/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=/usr/local/gcc-11.2/bin/gcc-11.2 -DCMAKE_CXX_COMPILER=/usr/local/gcc-11.2/bin/g++-11.2 -G Ninja -S /home/eaibot71/Ti/Ti-CV-2022 -B /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug

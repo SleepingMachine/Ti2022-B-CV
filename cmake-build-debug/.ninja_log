@@ -1,0 +1,7 @@
+# ninja log v5
+5	3853	1658926159859017935	CMakeFiles/Ti_CV_2022.dir/src/switch/switch-control.cpp.o	9ff28ee9befc77be
+1	3373	1658913257719931483	CMakeFiles/Ti_CV_2022.dir/src/camera-stream.cpp.o	c4410d45747a36ab
+5	3455	1658926159463017420	CMakeFiles/Ti_CV_2022.dir/src/Identify/identify-shape.cpp.o	162ff40e769e16d5
+3419	3729	1658926964802849969	Ti_CV_2022	19e79f9732c9c77e
+5	3245	1658926964318846666	CMakeFiles/Ti_CV_2022.dir/src/camera/camera-stream.cpp.o	63b7c4efdec22603
+4	3419	1658926964494847868	CMakeFiles/Ti_CV_2022.dir/main.cpp.o	33b867799ec68336
