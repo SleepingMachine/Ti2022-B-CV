@@ -8,6 +8,16 @@ SwitchControl::SwitchControl() {}
 
 void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
     ReadConfig();
+    IdentifyTools::CreatTrackbars(
+            &ShapeIdentify::hmin_R_, &ShapeIdentify::hmax_R_, &ShapeIdentify::smin_R_,
+            &ShapeIdentify::smax_R_, &ShapeIdentify::vmin_R_, &ShapeIdentify::vmax_R_,
+
+            &ShapeIdentify::hmin_B_, &ShapeIdentify::hmax_B_, &ShapeIdentify::smin_B_,
+            &ShapeIdentify::smax_B_, &ShapeIdentify::vmin_B_, &ShapeIdentify::vmax_B_,
+
+            &ShapeIdentify::open_, &ShapeIdentify::close_, &ShapeIdentify::erode_, &ShapeIdentify::dilate_
+
+    );
     while(true){
         ShapeIdentify::ShapeIdentifyStream(import_src_0);
     }

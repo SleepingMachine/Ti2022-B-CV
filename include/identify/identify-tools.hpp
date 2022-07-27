@@ -15,24 +15,25 @@ public:
 
         cv::namedWindow("阈值调整-R",cv::WINDOW_AUTOSIZE);
         cv::namedWindow("阈值调整-B",cv::WINDOW_AUTOSIZE);
-        cv::createTrackbar("hmin0", "阈值调整",hmin_0, 255,NULL);
-        cv::createTrackbar("hmax0", "阈值调整",hmax_0, 255,NULL);
-        cv::createTrackbar("smin0", "阈值调整",smin_0, 255,NULL);
-        cv::createTrackbar("smax0", "阈值调整",smax_0, 255,NULL);
-        cv::createTrackbar("vmin0", "阈值调整",vmin_0, 255,NULL);
-        cv::createTrackbar("vmax0", "阈值调整",vmax_0, 255,NULL);
+        cv::namedWindow("阈值调整-S",cv::WINDOW_AUTOSIZE);
+        cv::createTrackbar("hmin0", "阈值调整-R",hmin_0, 255,NULL);
+        cv::createTrackbar("hmax0", "阈值调整-R",hmax_0, 255,NULL);
+        cv::createTrackbar("smin0", "阈值调整-R",smin_0, 255,NULL);
+        cv::createTrackbar("smax0", "阈值调整-R",smax_0, 255,NULL);
+        cv::createTrackbar("vmin0", "阈值调整-R",vmin_0, 255,NULL);
+        cv::createTrackbar("vmax0", "阈值调整-R",vmax_0, 255,NULL);
 
-        cv::createTrackbar("hmin1", "阈值调整",hmin_1, 255,NULL);
-        cv::createTrackbar("hmax1", "阈值调整",hmax_1, 255,NULL);
-        cv::createTrackbar("smin1", "阈值调整",smin_1, 255,NULL);
-        cv::createTrackbar("smax1", "阈值调整",smax_1, 255,NULL);
-        cv::createTrackbar("vmin1", "阈值调整",vmin_1, 255,NULL);
-        cv::createTrackbar("vmax1", "阈值调整",vmax_1, 255,NULL);
+        cv::createTrackbar("hmin1", "阈值调整-B",hmin_1, 255,NULL);
+        cv::createTrackbar("hmax1", "阈值调整-B",hmax_1, 255,NULL);
+        cv::createTrackbar("smin1", "阈值调整-B",smin_1, 255,NULL);
+        cv::createTrackbar("smax1", "阈值调整-B",smax_1, 255,NULL);
+        cv::createTrackbar("vmin1", "阈值调整-B",vmin_1, 255,NULL);
+        cv::createTrackbar("vmax1", "阈值调整-B",vmax_1, 255,NULL);
 
-        cv::createTrackbar("open",  "矿石识别中的阈值调整",    open, 10,NULL);
-        cv::createTrackbar("close", "矿石识别中的阈值调整",  close, 30,NULL);
-        cv::createTrackbar("erode", "矿石识别中的阈值调整",  erode, 10,NULL);
-        cv::createTrackbar("dilate","矿石识别中的阈值调整",dilate, 20,NULL);
+        cv::createTrackbar("open",  "阈值调整-S",  open,  10,NULL);
+        cv::createTrackbar("close", "阈值调整-S",  close, 30,NULL);
+        cv::createTrackbar("erode", "阈值调整-S",  erode, 10,NULL);
+        cv::createTrackbar("dilate","阈值调整-S",  dilate,20,NULL);
     }
 
     static inline void drawRotatedRect(cv::Mat mask,const cv::RotatedRect &rotatedrect,const cv::Scalar &color,int thickness, int lineType)

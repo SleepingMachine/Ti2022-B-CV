@@ -7,10 +7,15 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
+#include "../../include/identify/identify-tools.hpp"
+#include "../../include/switch/switch-control.hpp"
 class ShapeIdentify{
 private:
     static cv::Mat import_src_;
+    static cv::Mat import_roi_;
     static cv::Mat import_hsv_;
+
     static cv::Mat color_mask_R_;
     static cv::Mat color_mask_B_;
     static cv::Mat dst_mask_R_;
@@ -35,9 +40,16 @@ private:
     static int erode_;
     static int dilate_;
 
+    static std::vector<std::vector<cv::Point2i>> all_contours_;
+    static std::vector<cv::Vec4i> hierarchy_;
+
     static void ImagePreprocessing();
+    static void AuxiliaryGraphicsDrawing();
+    static void ResourceRelease();
+    static void ShapeClassification();
 
 public:
+    friend class SwitchControl;
     static void ShapeIdentifyStream(cv::Mat *import_src_0);
     ShapeIdentify();
     ~ShapeIdentify();
