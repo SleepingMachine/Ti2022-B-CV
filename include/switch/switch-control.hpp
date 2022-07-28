@@ -6,6 +6,7 @@
 #define TI_CV_2022_SWITCH_CONTROL_HPP
 #include "../../include/switch/switch-read-config.hpp"
 #include "../../include/identify/identify-shape.hpp"
+#include "../../tools/tools-config.hpp"
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -14,6 +15,8 @@ class SwitchControl{
 private:
 
 public:
+    static FunctionConfig functionConfig_;
+
     static void SwitchStream(cv::Mat* import_src_0, cv::Mat* import_src_1);
     SwitchControl();
     ~SwitchControl();

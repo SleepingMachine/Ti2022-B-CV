@@ -5,6 +5,7 @@
 #include "../../include/switch/switch-control.hpp"
 
 SwitchControl::SwitchControl() {}
+FunctionConfig SwitchControl::functionConfig_ = FunctionConfigFactory::getFunctionConfig();
 
 void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
     ReadConfig();
@@ -32,36 +33,20 @@ int SwitchControl::ReadConfig() {
         return 1;
     }
 
-    std::string UserName            = config.ReadString("CONFIG", "UserName", "");
-
-    std::string _save_video         = config.ReadString("RMCONFIG", "EnableSaveVideo", "false");
-    std::string _operating_mode     = config.ReadString("RMCONFIG", "OperatingMode", "EXCHANGE_MODE");
-    std::string _ore_drop_detection = config.ReadString("RMCONFIG", "OreDropDetection", "false");
-    int _realsense_camera_exposure  = config.ReadInt   ("RMCONFIG", "RealsenseCameraExposure", -1);
+    std::string UserName        = config.ReadString("CONFIG", "UserName", "");
+    std::string _operating_mode = config.ReadString("CONFIG", "OperatingMode", "RED");
 
     std::cout << "User::" << UserName << std::endl;
-    /*
-    if (_operating_mode == "SEARCH_MODE"){
-        SwitchControl::functionConfig_._operating_mode = OperatingMode::SEARCH_MODE;
-    }
-    else if (_operating_mode == "EXCHANGE_MODE"){
-        SwitchControl::functionConfig_._operating_mode = OperatingMode::EXCHANGE_MODE;
-    }
-    if (_save_video == "true"){
-        SwitchControl::functionConfig_._enable_save_video = true;
-    }
-    else if (_save_video == "false"){
-        SwitchControl::functionConfig_._enable_save_video = false;
-    }
-    if (_ore_drop_detection == "true"){
-        SwitchControl::functionConfig_._enable_ore_drop_detection = true;
-    }
-    else if (_ore_drop_detection == "false"){
-        SwitchControl::functionConfig_._enable_ore_drop_detection = false;
-    }
 
-    CameraStream::cameraPara_.realsense_camera_exposure = _realsense_camera_exposure;
-    */
+    if (_operating_mode == "RED"){
+        SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::RED;
+    }
+    else if (_operating_mode == "BLUE"){
+        SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::BLUE;
+    }
+    else if (_operating_mode == "RING"){
+        SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::RING;
+    }
 }
 
 namespace rr

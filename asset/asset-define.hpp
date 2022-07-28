@@ -8,4 +8,10 @@
 const int FRAME_WIDTH  = 640;
 const int FRANE_HEIGHT = 480;
 
+enum OPERATING_MODE{
+    RED = 0,
+    BLUE,
+    RING
+};
+
 #endif //TI_CV_2022_ASSET_DEFINE_HPP

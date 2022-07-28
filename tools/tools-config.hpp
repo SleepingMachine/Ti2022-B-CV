@@ -6,20 +6,11 @@
 #define ABYSSAL_CV_2022_ENGINEERING_TOOLS_CONFIG_HPP
 
 #include <string>
+#include "../asset/asset-define.hpp"
 
 struct FunctionConfig
 {
-    //int _operating_mode                            = OperatingMode::EXCHANGE_MODE;
-    //可以载入本地视频或是使用usb免驱摄像头用于测试，需要注意无法读取到深度信息
-    //int _camera_type                               = REALSENSE_CAMERA;
-
-    bool _enable_save_video                          = false;
-
-    //bool _enable_local_video_stream                = true;
-    std::string local_video_path                   = "/home/sleepingmachine/视频/box2.mp4";
-
-    bool _enable_ore_drop_detection                = false;
-    bool _enable_debug_mode                        = true;
+    int _operating_mode = OPERATING_MODE::RED;
 };
 
 class FunctionConfigFactory{
@@ -181,9 +172,14 @@ public:
 
 struct ShapePara
 {
-    int min_shape_rect_area             = 100;
+    int   min_shape_rect_area           = 2000;
     float min_shape_length_width_ratio  = 0.6;
     float max_shape_length_width_ratio  = 1.8;
+
+    float max_square_length_width_ratio = 1.2;
+    float min_square_duty_cycle         = 0.85;
+    float max_triangle_duty_cycle       = 0.8;
+    float min_circumference_ratio       = 0.8;
 };
 
 class ShapeParaFactory{
