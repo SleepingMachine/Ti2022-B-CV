@@ -43,6 +43,8 @@ std::vector<cv::RotatedRect> ShapeIdentify::shape_square_rects_R_;
 std::vector<cv::RotatedRect> ShapeIdentify::shape_round_rects_R_;
 std::vector<cv::RotatedRect> ShapeIdentify::shape_triangle_rects_R_;
 
+bool _get_target_type_flag = false;
+
 int ShapeIdentify::hmin_R_ = 112;
 int ShapeIdentify::hmax_R_ = 199;
 int ShapeIdentify::smin_R_ = 98;
@@ -77,7 +79,10 @@ void ShapeIdentify::ShapeIdentifyStream(cv::Mat *import_src_0) {
     ImagePreprocessing();
     SuspectedShapeFilter();
     ShapeClassification();
-    AuxiliaryGraphicsDrawing();
+    InitTarget();
+    if (SwitchControl::functionConfig_._debug_mode){
+        AuxiliaryGraphicsDrawing();
+    }
     ResourceRelease();
 
 }
@@ -92,7 +97,8 @@ void ShapeIdentify::ImagePreprocessing() {
 
     cv::cvtColor(import_roi_, import_hsv_, cv::COLOR_BGR2HSV);
 
-    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED ||
+        SwitchControl::functionConfig_._init_mode){
         cv::inRange(import_hsv_, cv::Scalar(hmin_R_, smin_R_, vmin_R_),
                     cv::Scalar(hmax_R_, smax_R_, vmax_R_),
                     color_mask_R_);
@@ -102,7 +108,8 @@ void ShapeIdentify::ImagePreprocessing() {
         morphologyEx(dst_mask_R_,   dst_mask_R_,   0, getStructuringElement(cv::MORPH_RECT,cv::Size(erode_,  erode_)));
         morphologyEx(dst_mask_R_,   dst_mask_R_,   1, getStructuringElement(cv::MORPH_RECT,cv::Size(dilate_, dilate_)));
     }
-    else if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE ||
+             SwitchControl::functionConfig_._init_mode){
         cv::inRange(import_hsv_, cv::Scalar(hmin_B_, smin_B_, vmin_B_),
                     cv::Scalar(hmax_B_, smax_B_, vmax_B_),
                     color_mask_B_);
@@ -130,7 +137,7 @@ void ShapeIdentify::AuxiliaryGraphicsDrawing() {
         }
         cv::imshow("mask_R", dst_mask_R_);
     }
-    else if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE){
         for (int i = 0; i < shape_square_rects_B_.size(); ++i) {
             //IdentifyTools::drawRotatedRect(import_roi_, suspected_shape_rects_B_[i], cv::Scalar(170, 255, 32),  2, 16);
             cv::putText(import_roi_, "SQUARE", shape_square_rects_B_[i].center, cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar(170, 255, 32), 2);
@@ -162,18 +169,20 @@ void ShapeIdentify::ResourceRelease() {
     shape_contours_square_B_   .clear();
     shape_contours_round_B_    .clear();
     shape_contours_triangle_B_ .clear();
+    if (!SwitchControl::functionConfig_._init_mode){
+        shape_square_rects_B_      .clear();
+        shape_round_rects_B_       .clear();
+        shape_triangle_rects_B_    .clear();
 
-    shape_square_rects_B_      .clear();
-    shape_round_rects_B_       .clear();
-    shape_triangle_rects_B_    .clear();
-
-    shape_square_rects_R_      .clear();
-    shape_round_rects_R_       .clear();
-    shape_triangle_rects_R_    .clear();
+        shape_square_rects_R_      .clear();
+        shape_round_rects_R_       .clear();
+        shape_triangle_rects_R_    .clear();
+    }
 }
 
 void ShapeIdentify::SuspectedShapeFilter(){
-    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED ||
+        SwitchControl::functionConfig_._init_mode){
         cv::findContours(dst_mask_R_, all_contours_R_, hierarchy_R_, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
         for (int i = 0; i < all_contours_R_.size(); ++i) {
             if (hierarchy_R_[i][3] == -1) {
@@ -191,7 +200,8 @@ void ShapeIdentify::SuspectedShapeFilter(){
             }
         }
     }
-    else if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE ||
+             SwitchControl::functionConfig_._init_mode){
         cv::findContours(dst_mask_B_, all_contours_B_, hierarchy_B_, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
         for (int i = 0; i < all_contours_B_.size(); ++i) {
             if (hierarchy_B_[i][3] == -1) {
@@ -212,7 +222,8 @@ void ShapeIdentify::SuspectedShapeFilter(){
 }
 
 void ShapeIdentify::ShapeClassification() {
-    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED) {
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::RED ||
+        SwitchControl::functionConfig_._init_mode) {
         for (int i = 0; i < suspected_shape_contours_R_.size(); ++i) {
             std::vector<cv::Point2i> test_points;
             cv::approxPolyDP(suspected_shape_contours_R_[i], test_points, 20, true);
@@ -236,7 +247,8 @@ void ShapeIdentify::ShapeClassification() {
             }
         }
     }
-    else if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE){
+    if (SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::BLUE ||
+             SwitchControl::functionConfig_._init_mode){
 
         for (int i = 0; i < suspected_shape_contours_B_.size(); ++i) {
             std::vector<cv::Point2i> test_points;
@@ -261,5 +273,41 @@ void ShapeIdentify::ShapeClassification() {
             }
         }
     }
+}
 
+void ShapeIdentify::InitTarget() {
+    if (!SwitchControl::functionConfig_._init_mode && !_get_target_type_flag){
+        int counter = 0;
+        if(shape_square_rects_R_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::SQUARE_R;
+            counter = shape_square_rects_R_.size();
+        }
+        if(shape_round_rects_R_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::ROUND_R;
+            counter = shape_round_rects_R_.size();
+        }
+        if(shape_triangle_rects_R_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::TRIANGLE_R;
+            counter = shape_triangle_rects_R_.size();
+        }
+        if(shape_square_rects_B_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::SQUARE_B;
+            counter = shape_square_rects_B_.size();
+        }
+        if(shape_round_rects_B_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::ROUND_B;
+            counter = shape_round_rects_B_.size();
+        }
+        if(shape_triangle_rects_B_.size() > counter){
+            shapePara_.target_type = TARGET_TYPE::TRIANGLE_B;
+            counter = shape_triangle_rects_B_.size();
+        }
+
+        if (shapePara_.target_type == TARGET_TYPE::TRIANGLE_R || shapePara_.target_type == TARGET_TYPE::ROUND_R || shapePara_.target_type == TARGET_TYPE::SQUARE_R){
+            SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::RED;
+        }
+        if (shapePara_.target_type == TARGET_TYPE::TRIANGLE_B || shapePara_.target_type == TARGET_TYPE::ROUND_B || shapePara_.target_type == TARGET_TYPE::SQUARE_B){
+            SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::BLUE;
+        }
+    }
 }

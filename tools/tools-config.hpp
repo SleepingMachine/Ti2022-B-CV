@@ -10,7 +10,9 @@
 
 struct FunctionConfig
 {
-    int _operating_mode = OPERATING_MODE::RED;
+    int _operating_mode = OPERATING_MODE::WAIT;
+    bool _debug_mode    = false;
+    bool _init_mode     = true;
 };
 
 class FunctionConfigFactory{
@@ -172,6 +174,7 @@ public:
 
 struct ShapePara
 {
+    int   target_type                   = TARGET_TYPE::UNKONW;
     int   min_shape_rect_area           = 2000;
     float min_shape_length_width_ratio  = 0.6;
     float max_shape_length_width_ratio  = 1.8;

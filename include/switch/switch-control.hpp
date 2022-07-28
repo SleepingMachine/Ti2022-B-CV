@@ -9,11 +9,13 @@
 #include "../../tools/tools-config.hpp"
 
 #include <iostream>
+#include <sys/time.h>
 #include <opencv2/opencv.hpp>
 
 class SwitchControl{
 private:
-
+    static void GetTheTargetType(cv::Mat *import_src_0);
+    static bool _get_target_type_flag;
 public:
     static FunctionConfig functionConfig_;
 

@@ -73,6 +73,7 @@ private:
     static void ResourceRelease();
     static void SuspectedShapeFilter();
     static void ShapeClassification();
+    static void InitTarget();
 
     static ShapePara shapePara_;
 

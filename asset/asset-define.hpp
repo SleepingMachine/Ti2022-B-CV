@@ -9,9 +9,20 @@ const int FRAME_WIDTH  = 640;
 const int FRANE_HEIGHT = 480;
 
 enum OPERATING_MODE{
-    RED = 0,
+    WAIT = 0,
+    RED,
     BLUE,
     RING
+};
+
+enum TARGET_TYPE{
+    UNKONW = 0,
+    SQUARE_R,
+    ROUND_R,
+    TRIANGLE_R,
+    SQUARE_B,
+    ROUND_B,
+    TRIANGLE_B,
 };
 
 #endif //TI_CV_2022_ASSET_DEFINE_HPP
