@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/usr/local/gcc-11.2/bin/g++-11.2")
+set(CMAKE_CXX_COMPILER "/usr/libx32/local/gcc-11.2/bin/g++-11.2")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "11.2.0")
@@ -23,9 +23,9 @@ set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 set(CMAKE_AR "/usr/bin/ar")
-set(CMAKE_CXX_COMPILER_AR "/usr/local/gcc-11.2/bin/gcc-ar-11.2")
+set(CMAKE_CXX_COMPILER_AR "/usr/libx32/local/gcc-11.2/bin/gcc-ar-11.2")
 set(CMAKE_RANLIB "/usr/bin/ranlib")
-set(CMAKE_CXX_COMPILER_RANLIB "/usr/local/gcc-11.2/bin/gcc-ranlib-11.2")
+set(CMAKE_CXX_COMPILER_RANLIB "/usr/libx32/local/gcc-11.2/bin/gcc-ranlib-11.2")
 set(CMAKE_LINKER "/usr/bin/ld")
 set(CMAKE_MT "")
 set(CMAKE_COMPILER_IS_GNUCXX 1)
@@ -77,7 +77,7 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/usr/local/gcc-11.2/include/c++/11.2.0;/usr/local/gcc-11.2/include/c++/11.2.0/x86_64-linux-gnu;/usr/local/gcc-11.2/include/c++/11.2.0/backward;/usr/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0/include;/usr/local/include;/usr/local/gcc-11.2/include;/usr/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0/include-fixed;/usr/include/x86_64-linux-gnu;/usr/include")
+set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/usr/libx32/local/gcc-11.2/include/c++/11.2.0;/usr/libx32/local/gcc-11.2/include/c++/11.2.0/x86_64-linux-gnu;/usr/libx32/local/gcc-11.2/include/c++/11.2.0/backward;/usr/libx32/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0/include;/usr/libx32/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0/include-fixed;/usr/libx32/local/gcc-11.2/include;/usr/include/x86_64-linux-gnu;/usr/include")
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/usr/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0;/usr/local/gcc-11.2/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib/x86_64-linux-gnu;/usr/lib64;/usr/local/gcc-11.2/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/usr/libx32/local/gcc-11.2/lib/gcc/x86_64-linux-gnu/11.2.0;/usr/libx32/local/gcc-11.2/lib/gcc/x86_64-linux-gnu;/usr/libx32/local/gcc-11.2/lib/gcc;/usr/libx32/local/gcc-11.2/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib/x86_64-linux-gnu;/usr/lib64;/usr/libx32/local/gcc-11.2/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

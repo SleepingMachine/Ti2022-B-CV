@@ -10,6 +10,7 @@ const int FRANE_HEIGHT = 480;
 
 enum OPERATING_MODE{
     WAIT = 0,
+    SEARCH,
     RED,
     BLUE,
     RING

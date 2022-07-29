@@ -143,7 +143,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/usr/local/gcc-11.2/bin/g++-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/g++-11.2"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -159,7 +159,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/local/gcc-11.2/bin/gcc-ar-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/gcc-ar-11.2"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -175,7 +175,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/local/gcc-11.2/bin/gcc-ranlib-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/gcc-ranlib-11.2"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -271,7 +271,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/usr/local/gcc-11.2/bin/gcc-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/gcc-11.2"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -287,7 +287,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/local/gcc-11.2/bin/gcc-ar-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/gcc-ar-11.2"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -303,7 +303,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/local/gcc-11.2/bin/gcc-ranlib-11.2"
+			"value" : "/usr/libx32/local/gcc-11.2/bin/gcc-ranlib-11.2"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -1171,7 +1171,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/usr/local][v4.5.3()]"
+			"value" : "[/usr][v4.2.0()]"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
@@ -1195,7 +1195,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/usr/local/lib/cmake/opencv4"
+			"value" : "/usr/lib/x86_64-linux-gnu/cmake/opencv4"
 		},
 		{
 			"name" : "Ti_CV_2022_BINARY_DIR",

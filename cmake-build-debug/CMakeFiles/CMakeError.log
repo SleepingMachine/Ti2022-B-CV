@@ -1,16 +1,16 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/snap/clion/198/bin/ninja/linux/ninja cmTC_c21e0 && [1/2] Building C object CMakeFiles/cmTC_c21e0.dir/src.c.o
-[2/2] Linking C executable cmTC_c21e0
-FAILED: cmTC_c21e0 
-: && /usr/local/gcc-11.2/bin/gcc-11.2   CMakeFiles/cmTC_c21e0.dir/src.c.o -o cmTC_c21e0   && :
-/usr/bin/ld: CMakeFiles/cmTC_c21e0.dir/src.c.o: in function `main':
+Run Build Command(s):/snap/clion/198/bin/ninja/linux/ninja cmTC_862b4 && [1/2] Building C object CMakeFiles/cmTC_862b4.dir/src.c.o
+[2/2] Linking C executable cmTC_862b4
+FAILED: cmTC_862b4 
+: && /usr/libx32/local/gcc-11.2/bin/gcc-11.2   CMakeFiles/cmTC_862b4.dir/src.c.o -o cmTC_862b4   && :
+/usr/bin/ld: CMakeFiles/cmTC_862b4.dir/src.c.o: in function `main':
 src.c:(.text+0x2d): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x39): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x45): undefined reference to `pthread_cancel'
 /usr/bin/ld: src.c:(.text+0x56): undefined reference to `pthread_join'
-collect2: 错误：ld 返回 1
+collect2: 错误： ld 返回 1
 ninja: build stopped: subcommand failed.
 
 
@@ -38,12 +38,12 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/snap/clion/198/bin/ninja/linux/ninja cmTC_afdb3 && [1/2] Building C object CMakeFiles/cmTC_afdb3.dir/CheckFunctionExists.c.o
-[2/2] Linking C executable cmTC_afdb3
-FAILED: cmTC_afdb3 
-: && /usr/local/gcc-11.2/bin/gcc-11.2 -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_afdb3.dir/CheckFunctionExists.c.o -o cmTC_afdb3  -lpthreads && :
+Run Build Command(s):/snap/clion/198/bin/ninja/linux/ninja cmTC_2a563 && [1/2] Building C object CMakeFiles/cmTC_2a563.dir/CheckFunctionExists.c.o
+[2/2] Linking C executable cmTC_2a563
+FAILED: cmTC_2a563 
+: && /usr/libx32/local/gcc-11.2/bin/gcc-11.2 -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_2a563.dir/CheckFunctionExists.c.o -o cmTC_2a563  -lpthreads && :
 /usr/bin/ld: 找不到 -lpthreads
-collect2: 错误：ld 返回 1
+collect2: 错误： ld 返回 1
 ninja: build stopped: subcommand failed.
 
 

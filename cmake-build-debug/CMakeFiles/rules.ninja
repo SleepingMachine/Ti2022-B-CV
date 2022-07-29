@@ -17,7 +17,7 @@
 rule CXX_COMPILER__Ti_CV_2022_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/local/gcc-11.2/bin/g++-11.2 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/libx32/local/gcc-11.2/bin/g++-11.2 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -25,7 +25,7 @@ rule CXX_COMPILER__Ti_CV_2022_Debug
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__Ti_CV_2022_Debug
-  command = $PRE_LINK && /usr/local/gcc-11.2/bin/g++-11.2 $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  command = $PRE_LINK && /usr/libx32/local/gcc-11.2/bin/g++-11.2 $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 

@@ -10,7 +10,7 @@ find_package(Threads REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-add_executable(Ti_CV_2022 main.cpp src/camera/camera-stream.cpp include/camera/camera-stream.hpp asset/asset-define.hpp src/Identify/identify-shape.cpp include/identify/identify-shape.hpp src/switch/switch-control.cpp include/switch/switch-control.hpp include/identify/identify-tools.hpp)
+add_executable(Ti_CV_2022 main.cpp src/camera/camera-stream.cpp include/camera/camera-stream.hpp asset/asset-define.hpp src/Identify/identify-shape.cpp include/identify/identify-shape.hpp src/switch/switch-control.cpp include/switch/switch-control.hpp include/identify/identify-tools.hpp include/serial/serial-port.hpp src/serial/serial-port.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 

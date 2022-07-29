@@ -9,7 +9,7 @@ FunctionConfig SwitchControl::functionConfig_ = FunctionConfigFactory::getFuncti
 
 void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
     ReadConfig();
-    if (functionConfig_._operating_mode){
+    if (functionConfig_._debug_mode){
         IdentifyTools::CreatTrackbars(
                 &ShapeIdentify::hmin_R_, &ShapeIdentify::hmax_R_, &ShapeIdentify::smin_R_,
                 &ShapeIdentify::smax_R_, &ShapeIdentify::vmin_R_, &ShapeIdentify::vmax_R_,
@@ -22,8 +22,8 @@ void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
         );
     }
     GetTheTargetType(import_src_0);
-    while(true){
 
+    while(true){
         ShapeIdentify::ShapeIdentifyStream(import_src_0);
     }
 }
@@ -65,16 +65,25 @@ int SwitchControl::ReadConfig() {
 }
 
 void SwitchControl::GetTheTargetType(cv::Mat *import_src_0) {
-    struct timeval t_start, t_end;
-    gettimeofday(&t_start, NULL);
-    do {
-        gettimeofday(&t_end, NULL);
+    while(SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::WAIT){
+        int c = cv::waitKey(10);
+        std::cout << "[空闲等待中::按esc跳过]" << std::endl;
+        if (c == 27) {
+            SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::SEARCH;
+            break;
+        }
+    }
+    if(SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::SEARCH){
+        struct timeval t_start, t_end;
+        gettimeofday(&t_start, NULL);
+        do {
+            gettimeofday(&t_end, NULL);
+            std::cout << "[搜索目标类型::剩余" << 5 - (t_end.tv_sec - t_start.tv_sec) << "秒]" << std::endl;
+            ShapeIdentify::ShapeIdentifyStream(import_src_0);
+        } while (t_end.tv_sec - t_start.tv_sec < 5);
+        SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::WAIT;
+    }
 
-        functionConfig_._init_mode = true;
-        ShapeIdentify::ShapeIdentifyStream(import_src_0);
-
-    } while (t_end.tv_sec - t_start.tv_sec < 5);
-    functionConfig_._init_mode = false;
 }
 
 
