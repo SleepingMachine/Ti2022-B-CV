@@ -14,12 +14,12 @@
 
 class SwitchControl{
 private:
-    static void GetTheTargetType(cv::Mat *import_src_0);
+    static void GetTheTargetType(cv::Mat *import_src_0, int64* sent_serial_port_data);
     static bool _get_target_type_flag;
 public:
     static FunctionConfig functionConfig_;
 
-    static void SwitchStream(cv::Mat* import_src_0, cv::Mat* import_src_1);
+    static void SwitchStream(cv::Mat* import_src_0, cv::Mat* import_src_1, int64* sent_serial_port_data);
     SwitchControl();
     ~SwitchControl();
 

@@ -27,6 +27,8 @@ void SerialPort::SendData(int64* sentData) {
             temp_send_data = *sentData;
             mutex_serial.unlock();
         }
+
+        //std::cout << "sassasas:" << temp_send_data << std::endl;
         //std::cout << *sentData << std::endl;
         SerialPort::GetHitPointData(temp_send_data);
 
@@ -156,9 +158,8 @@ void SerialPort::GetHitPointData(int tempData) {
     SerialPort::sent_data_[1] = (hitPointData - SerialPort::sent_data_[0]*100) /10;
     SerialPort::sent_data_[2] = hitPointData % 10;
 */
-    int fall_flag = tempData % 10;
-    int hitPointData_y = (tempData - fall_flag)/10 % 1000;
-    int hitPointData_x = ((tempData - fall_flag)/10 - hitPointData_y)/1000;
+    int hitPointData_y = tempData % 1000;
+    int hitPointData_x = (tempData - hitPointData_y) / 1000;
     //std::cout << hitPointData_x << " " << hitPointData_y << " " << fall_flag << std::endl;
 
     sent_data_[0] = 's';
@@ -167,8 +168,6 @@ void SerialPort::GetHitPointData(int tempData) {
     sent_data_[2] = (( hitPointData_x>> 0) & 0xFF);
     sent_data_[3] = (( hitPointData_y>> 8) & 0xFF);
     sent_data_[4] = (( hitPointData_y>> 0) & 0xFF);
-    sent_data_[5] = (( fall_flag>> 8) & 0xFF);
-    sent_data_[6] = (( fall_flag>> 0) & 0xFF);
 
     sent_data_[7] = 'e';
 

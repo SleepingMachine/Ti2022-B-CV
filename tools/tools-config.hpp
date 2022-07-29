@@ -7,6 +7,7 @@
 
 #include <string>
 #include "../asset/asset-define.hpp"
+#include <opencv2/opencv.hpp>
 
 struct FunctionConfig
 {
@@ -184,6 +185,8 @@ struct ShapePara
     float min_square_duty_cycle         = 0.85;
     float max_triangle_duty_cycle       = 0.8;
     float min_circumference_ratio       = 0.8;
+
+    cv::Point2i reference_center        = cv::Point(FRAME_WIDTH/2,FRANE_HEIGHT/2);
 };
 
 class ShapeParaFactory{

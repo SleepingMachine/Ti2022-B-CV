@@ -68,18 +68,24 @@ private:
     static std::vector<cv::RotatedRect> shape_round_rects_R_;
     static std::vector<cv::RotatedRect> shape_triangle_rects_R_;
 
+    static ShapePara shapePara_;
+
+    static int temp_sent_data_x_;
+    static int temp_sent_data_y_;
+    static int temp_sent_data_;
+
     static void ImagePreprocessing();
     static void AuxiliaryGraphicsDrawing();
     static void ResourceRelease();
     static void SuspectedShapeFilter();
     static void ShapeClassification();
     static void InitTarget();
-
-    static ShapePara shapePara_;
+    static void Target_Selection();
+    static void InformationSending();
 
 public:
     friend class SwitchControl;
-    static void ShapeIdentifyStream(cv::Mat *import_src_0);
+    static void ShapeIdentifyStream(cv::Mat *import_src_0, int64* sent_data);
     ShapeIdentify();
     ~ShapeIdentify();
 };

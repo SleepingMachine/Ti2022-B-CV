@@ -15,8 +15,8 @@ cv::Mat frame_camera_1 (cv::Size(FRAME_WIDTH,FRANE_HEIGHT), CV_8UC3);
 
 int main() {
     std::thread camera_thread(CameraStream::StreamRetrieve, &frame_camera_0, &frame_camera_1);
-    std::thread switch_thread(SwitchControl::SwitchStream,  &frame_camera_0, &frame_camera_1);
-    std::thread serial_thread(SerialPort::SendData,&sent_serial_port_data);
+    std::thread switch_thread(SwitchControl::SwitchStream,  &frame_camera_0, &frame_camera_1, &sent_serial_port_data);
+    std::thread serial_thread(SerialPort::SendData, &sent_serial_port_data);
 
     switch_thread.join();
     camera_thread.join();

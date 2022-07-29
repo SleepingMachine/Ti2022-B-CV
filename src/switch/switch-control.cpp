@@ -7,7 +7,7 @@
 SwitchControl::SwitchControl() {}
 FunctionConfig SwitchControl::functionConfig_ = FunctionConfigFactory::getFunctionConfig();
 
-void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
+void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1, int64* sent_serial_port_data) {
     ReadConfig();
     if (functionConfig_._debug_mode){
         IdentifyTools::CreatTrackbars(
@@ -21,10 +21,10 @@ void SwitchControl::SwitchStream(cv::Mat *import_src_0, cv::Mat *import_src_1) {
 
         );
     }
-    GetTheTargetType(import_src_0);
+    GetTheTargetType(import_src_0, sent_serial_port_data);
 
     while(true){
-        ShapeIdentify::ShapeIdentifyStream(import_src_0);
+        ShapeIdentify::ShapeIdentifyStream(import_src_0, sent_serial_port_data);
     }
 }
 
@@ -64,7 +64,7 @@ int SwitchControl::ReadConfig() {
     }
 }
 
-void SwitchControl::GetTheTargetType(cv::Mat *import_src_0) {
+void SwitchControl::GetTheTargetType(cv::Mat *import_src_0, int64* sent_serial_port_data) {
     while(SwitchControl::functionConfig_._operating_mode == OPERATING_MODE::WAIT){
         int c = cv::waitKey(10);
         std::cout << "[空闲等待中::按esc跳过]" << std::endl;
@@ -79,7 +79,7 @@ void SwitchControl::GetTheTargetType(cv::Mat *import_src_0) {
         do {
             gettimeofday(&t_end, NULL);
             std::cout << "[搜索目标类型::剩余" << 5 - (t_end.tv_sec - t_start.tv_sec) << "秒]" << std::endl;
-            ShapeIdentify::ShapeIdentifyStream(import_src_0);
+            ShapeIdentify::ShapeIdentifyStream(import_src_0, sent_serial_port_data);
         } while (t_end.tv_sec - t_start.tv_sec < 5);
         SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::WAIT;
     }

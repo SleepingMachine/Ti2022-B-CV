@@ -5,6 +5,7 @@
 #include "../../include/identify/identify-shape.hpp"
 
 extern std::mutex mutex_camera_0;
+extern std::mutex mutex_serial;
 
 ShapeIdentify::ShapeIdentify() {}
 
@@ -43,6 +44,10 @@ std::vector<cv::RotatedRect> ShapeIdentify::shape_square_rects_R_;
 std::vector<cv::RotatedRect> ShapeIdentify::shape_round_rects_R_;
 std::vector<cv::RotatedRect> ShapeIdentify::shape_triangle_rects_R_;
 
+int ShapeIdentify::temp_sent_data_   = 0;
+int ShapeIdentify::temp_sent_data_x_ = 0;
+int ShapeIdentify::temp_sent_data_y_ = 0;
+
 bool _get_target_type_flag = false;
 
 int ShapeIdentify::hmin_R_ = 0;
@@ -66,7 +71,7 @@ int ShapeIdentify::dilate_ = 7;
 
 ShapePara ShapeIdentify::shapePara_ = ShapeParaFactory::getShapePara();
 
-void ShapeIdentify::ShapeIdentifyStream(cv::Mat *import_src_0) {
+void ShapeIdentify::ShapeIdentifyStream(cv::Mat *import_src_0, int64 *sent_data) {
     cv::Mat temp_src_0;
     if (mutex_camera_0.try_lock()) {
         temp_src_0 = *import_src_0;
@@ -80,12 +85,18 @@ void ShapeIdentify::ShapeIdentifyStream(cv::Mat *import_src_0) {
     ImagePreprocessing();
     SuspectedShapeFilter();
     ShapeClassification();
+    Target_Selection();
     if (SwitchControl::functionConfig_._debug_mode){
         AuxiliaryGraphicsDrawing();
     }
-    ResourceRelease();
 
+    if (mutex_serial.try_lock()){
+        *sent_data = temp_sent_data_;
+        mutex_serial.unlock();
+    }
+    ResourceRelease();
 }
+
 
 void ShapeIdentify::ImagePreprocessing() {
 
@@ -169,6 +180,11 @@ void ShapeIdentify::ResourceRelease() {
     shape_contours_square_B_   .clear();
     shape_contours_round_B_    .clear();
     shape_contours_triangle_B_ .clear();
+
+    temp_sent_data_x_ = 0;
+    temp_sent_data_y_ = 0;
+    temp_sent_data_   = 0;
+
     if (SwitchControl::functionConfig_._operating_mode != OPERATING_MODE::SEARCH){
         shape_square_rects_B_      .clear();
         shape_round_rects_B_       .clear();
@@ -310,8 +326,92 @@ void ShapeIdentify::InitTarget() {
             SwitchControl::functionConfig_._operating_mode = OPERATING_MODE::BLUE;
         }
 
-        std::cout << "[目标类型序号::" << shapePara_.target_type << "]" << std::endl;
+        std::cout << "[目标类型序号::" << shapePara_.target_type << "] " ;
+        
+    }
+}
 
+void ShapeIdentify::Target_Selection() {
+
+    temp_sent_data_y_ = 0;
+    temp_sent_data_x_ = 0;
+
+    if(shapePara_.target_type == TARGET_TYPE::SQUARE_R && !shape_square_rects_R_.empty()){
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_square_rects_R_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_square_rects_R_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_square_rects_R_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_square_rects_R_[index].center.x;
+        temp_sent_data_y_ = shape_square_rects_R_[index].center.y;
 
     }
+    if(shapePara_.target_type == TARGET_TYPE::ROUND_R && !shape_round_rects_R_.empty()){
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_round_rects_R_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_round_rects_R_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_round_rects_R_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_round_rects_R_[index].center.x;
+        temp_sent_data_y_ = shape_round_rects_R_[index].center.y;
+    }
+    if(shapePara_.target_type == TARGET_TYPE::TRIANGLE_R && !shape_triangle_rects_R_.empty()){
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_triangle_rects_R_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_triangle_rects_R_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_triangle_rects_R_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_triangle_rects_R_[index].center.x;
+        temp_sent_data_y_ = shape_triangle_rects_R_[index].center.y;
+    }
+
+    if(shapePara_.target_type == TARGET_TYPE::SQUARE_B && !shape_square_rects_B_.empty()){
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_square_rects_B_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_square_rects_B_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_square_rects_B_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_square_rects_B_[index].center.x;
+        temp_sent_data_y_ = shape_square_rects_B_[index].center.y;
+    }
+
+    if(shapePara_.target_type == TARGET_TYPE::ROUND_B && !shape_round_rects_B_.empty()){
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_round_rects_B_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_round_rects_B_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_round_rects_B_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_round_rects_B_[index].center.x;
+        temp_sent_data_y_ = shape_round_rects_B_[index].center.y;
+    }
+    if(shapePara_.target_type == TARGET_TYPE::TRIANGLE_B && !shape_triangle_rects_B_.empty()){
+        //std::cout << 2 << std::endl;
+        int min_distance = 1000;
+        int index = 0;
+        for (int i = 0; i < shape_triangle_rects_B_.size(); ++i) {
+            if (IdentifyTools::getTwoPointDistance(shape_triangle_rects_B_[i].center, shapePara_.reference_center) < min_distance){
+                int index = i;
+                min_distance = IdentifyTools::getTwoPointDistance(shape_triangle_rects_B_[i].center, shapePara_.reference_center);
+            }
+        }
+        temp_sent_data_x_ = shape_triangle_rects_B_[index].center.x;
+        temp_sent_data_y_ = shape_triangle_rects_B_[index].center.y;
+    }
+    temp_sent_data_ = temp_sent_data_x_ * 1000 + temp_sent_data_y_;
+    std::cout << "[找到目标于::" << temp_sent_data_x_ << " " << temp_sent_data_y_ << "]" << std::endl;
 }
