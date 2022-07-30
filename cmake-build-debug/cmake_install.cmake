@@ -1,4 +1,4 @@
-# Install script for directory: /home/eaibot71/Ti/Ti-CV-2022
+# Install script for directory: /home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

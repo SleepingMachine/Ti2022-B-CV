@@ -1,4 +1,26 @@
-/snap/clion/198/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/198/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=/usr/libx32/local/gcc-11.2/bin/gcc-11.2 -DCMAKE_CXX_COMPILER=/usr/libx32/local/gcc-11.2/bin/g++-11.2 -G Ninja -S /home/eaibot71/Ti/Ti-CV-2022 -B /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug
+/snap/clion/203/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/libx32/local/gcc-11.2/bin/gcc-11.2 -DCMAKE_CXX_COMPILER=/usr/libx32/local/gcc-11.2/bin/g++-11.2 -G "CodeBlocks - Unix Makefiles" -S /home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV -B /home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug
+-- The C compiler identification is GNU 11.2.0
+-- The CXX compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/libx32/local/gcc-11.2/bin/gcc-11.2 - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/libx32/local/gcc-11.2/bin/g++-11.2 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenCV: /usr (found version "4.2.0") 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug
+-- Build files have been written to: /home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug

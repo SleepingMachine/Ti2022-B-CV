@@ -412,6 +412,6 @@ void ShapeIdentify::Target_Selection() {
         temp_sent_data_x_ = shape_triangle_rects_B_[index].center.x;
         temp_sent_data_y_ = shape_triangle_rects_B_[index].center.y;
     }
-    temp_sent_data_ = temp_sent_data_x_ * 1000 + temp_sent_data_y_;
+    temp_sent_data_ =  shapePara_.target_type * 1000000 + temp_sent_data_x_ * 1000 + temp_sent_data_y_;
     std::cout << "[找到目标于::" << temp_sent_data_x_ << " " << temp_sent_data_y_ << "]" << std::endl;
 }

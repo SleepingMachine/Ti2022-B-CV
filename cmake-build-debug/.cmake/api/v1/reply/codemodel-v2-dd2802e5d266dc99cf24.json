@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug",
-		"source" : "/home/eaibot71/Ti/Ti-CV-2022"
+		"build" : "/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug",
+		"source" : "/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 3
+		"minor" : 4
 	}
 }

@@ -1,3 +1,3 @@
-/home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/CMakeFiles/Ti_CV_2022.dir
-/home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/eaibot71/Ti/Ti-CV-2022/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug/CMakeFiles/Ti_CV_2022.dir
+/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/eaibot71/Ti/TI@2022-CV-FullSize/Ti2022-B-CV/cmake-build-debug/CMakeFiles/rebuild_cache.dir

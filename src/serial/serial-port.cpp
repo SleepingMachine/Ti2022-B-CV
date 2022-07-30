@@ -158,9 +158,11 @@ void SerialPort::GetHitPointData(int tempData) {
     SerialPort::sent_data_[1] = (hitPointData - SerialPort::sent_data_[0]*100) /10;
     SerialPort::sent_data_[2] = hitPointData % 10;
 */
-    int hitPointData_y = tempData % 1000;
-    int hitPointData_x = (tempData - hitPointData_y) / 1000;
-    //std::cout << hitPointData_x << " " << hitPointData_y << " " << fall_flag << std::endl;
+
+    int hitPointData_y    = tempData % 1000;
+    int hitPointData_x    = ((tempData - hitPointData_y) % 1000000) / 1000;
+    int hitPointData_type = tempData / 1000000;
+    //std::cout << hitPointData_x << " " << hitPointData_y << " " << hitPointData_type << std::endl;
 
     sent_data_[0] = 's';
 
@@ -168,6 +170,8 @@ void SerialPort::GetHitPointData(int tempData) {
     sent_data_[2] = (( hitPointData_x>> 0) & 0xFF);
     sent_data_[3] = (( hitPointData_y>> 8) & 0xFF);
     sent_data_[4] = (( hitPointData_y>> 0) & 0xFF);
+    sent_data_[5] = (( hitPointData_type>> 8) & 0xFF);
+    sent_data_[6] = (( hitPointData_type>> 0) & 0xFF);
 
     sent_data_[7] = 'e';
 
